@@ -17,19 +17,19 @@
 #include <future>
 #include "ThreadStats.h"
 
-//30x30µ¥pod
+//30x30å•pod
 using namespace std;
 using namespace ExcelFormat;
 using task_return_type = std::chrono::system_clock::duration;
 
-std::random_device rd; //ÕæÊµËæ»úÊı²úÉúÆ÷
+std::random_device rd; //çœŸå®éšæœºæ•°äº§ç”Ÿå™¨
 
-std::mt19937 mt(rd()); //Éú³É¼ÆËãËæ»úÊımt;
+std::mt19937 mt(rd()); //ç”Ÿæˆè®¡ç®—éšæœºæ•°mt;
 
-std::uniform_int_distribution<int> dist(-1000, 1000);//Éú³É-1000µ½1000Ö®¼äµÄÀëÉ¢¾ùÔÈ·Ö²¿Êı
+std::uniform_int_distribution<int> dist(-1000, 1000);//ç”Ÿæˆ-1000åˆ°1000ä¹‹é—´çš„ç¦»æ•£å‡åŒ€åˆ†éƒ¨æ•°
 
 auto rnd = std::bind(dist, mt);
-mutex m;     //»¥³â
+mutex m;     //äº’æ–¥
 mutex m1;
 mutex m2;
 mutex m3;
@@ -41,7 +41,7 @@ vector<vector<Node>> devide1_2;
 vector<vector<Node>> foundSets(vector<vector<Node>> nodeList, int length,int k);
 vector<vector<Node>> foundPods(CMap* mapp, Node nodeList[], int length);
 vector<vector<Node>> foundPods1(vector<vector<Node>> nodeList, int length, int k);
-vector<vector<vector<Node>>> foundPods2(CMap* mapp, Node nodeList[], int length);//for ¶àpods
+vector<vector<vector<Node>>> foundPods2(CMap* mapp, Node nodeList[], int length);//for å¤špods
 vector<vector<Node>> smallest_devision1(vector<vector<Node>> nodeList, int length, int Lmax, int k, int k1, int k2);
 vector<vector<Node>> smallest_devision2(vector<vector<Node>> nodeList, int length, int Lmax, int k);
 void print(vector<vector<Node>>nodeList);
@@ -87,7 +87,7 @@ vector<vector<Node>> foundSets(Node nodeList[], int length,int k) {
 	}
 }
 */
-//ÉÏ²ãÍøÂç»®·ÖµÃµ½set
+//ä¸Šå±‚ç½‘ç»œåˆ’åˆ†å¾—åˆ°set
 vector<vector<Node>> foundSets(vector<vector<Node>> nodeList, int length, int k) {
 	vector<Node> a_set;
 	vector<vector<Node>> sets;
@@ -167,7 +167,7 @@ vector<vector<Node>> foundPods(CMap* mapp, Node nodeList[], int length) {
 	return pod;
 
 }
-//ÏÂ²ãÍøÂç»®·ÖµÃµ½Pod
+//ä¸‹å±‚ç½‘ç»œåˆ’åˆ†å¾—åˆ°Pod
 vector<vector<Node>> foundPods1(vector<vector<Node>> nodeList, int length, int k) {
 	vector<vector<Node>> pod;
 	//vector<Node> first_edge;
@@ -200,7 +200,7 @@ vector<vector<vector<Node>>> foundPods2(CMap* mapp, Node nodeList[], int length)
 	vector<Node>second_edge;
 	vector<vector<Node>>a_pod;
 	vector<vector<vector<Node>>>pods;
-	for (int i = 0; i < length; i++) {//ÕÒµ½µÚÒ»¸ö»ã¾Û²ãsw¿ªÊ¼ÕÒµ½pod£¬°´ÕÕÁ¬½Ó¹æÂÉ
+	for (int i = 0; i < length; i++) {//æ‰¾åˆ°ç¬¬ä¸€ä¸ªæ±‡èšå±‚swå¼€å§‹æ‰¾åˆ°podï¼ŒæŒ‰ç…§è¿æ¥è§„å¾‹
 		if (nodeList[i].node_kind == '2') {
 			for (int j = 0; j < 40; j++) {//************************************************
 				first_edge.push_back(nodeList[i + j]);
@@ -213,7 +213,7 @@ vector<vector<vector<Node>>> foundPods2(CMap* mapp, Node nodeList[], int length)
 			a_pod.push_back(first_edge);
 			a_pod.push_back(second_edge);
 			pods.push_back(a_pod);
-			i += 39;//¹ı¶Éµ½ÏÂÒ»¸öpodµÄµÚÒ»¸ö»ã¾Û²ãsw//************************************************
+			i += 39;//è¿‡æ¸¡åˆ°ä¸‹ä¸€ä¸ªpodçš„ç¬¬ä¸€ä¸ªæ±‡èšå±‚sw//************************************************
 			first_edge.clear();
 			second_edge.clear();
 			a_pod.clear();
@@ -239,7 +239,7 @@ void print_r(vector<Node>nodeList) {
 		else cout << "s" << nodeList[i].m_cData << "->";
 	}
 }
-//»®·ÖµÃµ½Á½²ãÍøÂç
+//åˆ’åˆ†å¾—åˆ°ä¸¤å±‚ç½‘ç»œ
 int layer2area(Node nodeList[], int length,int k) {
 	int num_flag = 0;
 	vector<Node> first_edge;
@@ -306,11 +306,11 @@ void layer2Sub_area(CMap* mapp, Node* nodeList) {
 
 }
 
-//ÅĞ¶ÏÊÇ·ñÄÜ¹»½«ÍØÆË»®·ÖÎªNmin¸öµ¥Ôª
+//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿå°†æ‹“æ‰‘åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 bool isValidDivision(int k1, int k2, int L, int Nmin, int a, int b) {
 	return b % 2 == 0 && b < k2 + 1 && k1 % a == 0 && k2 % b == 0 && a < k1 + 1;
 }
-//½«setÊı×éÖĞµÄÃ¿Ò»ĞĞ½øĞĞ·Ö¸î
+//å°†setæ•°ç»„ä¸­çš„æ¯ä¸€è¡Œè¿›è¡Œåˆ†å‰²
 vector<Node> createPart(vector<Node>& set, int start, int end) {
 	vector<Node> part;
 	for (int j = start; j < end; j++) {
@@ -318,7 +318,7 @@ vector<Node> createPart(vector<Node>& set, int start, int end) {
 	}
 	return part;
 }
-//½«setÊı×é·Ö¸îºÃºó´æÈëdeParts
+//å°†setæ•°ç»„åˆ†å‰²å¥½åå­˜å…¥deParts
 vector<vector<Node>> createParts(vector<vector<Node>>& sets, int a, int b, int k,int na,int nb,int j1,int j2) {
 	vector<vector<Node>> devParts;
 	for (int i = 0; i < k / 2; i++) {
@@ -339,10 +339,10 @@ vector<vector<Node>> createParts(vector<vector<Node>>& sets, int a, int b, int k
 	}
 	return devParts;
 }
-//µÚ¶ş´Î»®·Ö
+//ç¬¬äºŒæ¬¡åˆ’åˆ†
 vector<vector<Node>> secondDivision(vector<vector<Node>>& sets, int k1, int k2, int k,int Nmin, int L, int j1, int j2) {
 	vector<vector<Node>> devParts;
-	if (k1 * k2 % Nmin == 0 && k1 * k2 / Nmin % 4 == 0) {//Ê£ÓàÍØÆËÄÜ¹»»®·ÖÎªNmin¸öÇøÓò
+	if (k1 * k2 % Nmin == 0 && k1 * k2 / Nmin % 4 == 0) {//å‰©ä½™æ‹“æ‰‘èƒ½å¤Ÿåˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 		L = k1 * k2 / Nmin;
 		for (int a1 = 2; a1 < k1 * k2 / Nmin + 1; a1 += 2) {
 			int b1 = k1 * k2 / Nmin / a1;
@@ -354,7 +354,7 @@ vector<vector<Node>> secondDivision(vector<vector<Node>>& sets, int k1, int k2, 
 			}
 		}
 	}
-	else {//Ê£ÓàÍØÆË²»ÄÜ»®·ÖÎªNmin¸öÇøÓò
+	else {//å‰©ä½™æ‹“æ‰‘ä¸èƒ½åˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 		bool found = false;
 		int rest1 = 0, rest2 = 0;
 		for (; L > 0; L -= 4) {
@@ -371,13 +371,13 @@ vector<vector<Node>> secondDivision(vector<vector<Node>>& sets, int k1, int k2, 
 			}
 			if (found) break;
 		}
-		if (rest1 == 0 && rest2 == 0) { cout << "Íê³É»®·Ö" << endl; }
+		if (rest1 == 0 && rest2 == 0) { cout << "å®Œæˆåˆ’åˆ†" << endl; }
 		if (rest1 != 0 && rest2 == 0) {
 			k1 = rest1; k2 = k2 - rest2;
 			vector<vector<Node>> newParts1 = secondDivision(sets, k1, k2, k, Nmin, L, k1-rest1, k-k2);
 			devParts.insert(devParts.end(), newParts1.begin(), newParts1.end());
 		}
-		/******ÉĞÎ´ÑéÖ¤******/
+		/******å°šæœªéªŒè¯******/
 		if (rest1 == 0 && rest2 != 0) {
 			k1 = k1 - rest1; k2 = rest2;
 			vector<vector<Node>> newParts1 = secondDivision(sets, k1, k2, k, Nmin, L, k1 - rest1, k - k2);
@@ -393,7 +393,7 @@ vector<vector<Node>> secondDivision(vector<vector<Node>>& sets, int k1, int k2, 
 	return devParts;
 }
 
-//ÉÏ²ãÍøÂç×îĞ¡µ¥Ôª»®·Ö
+//ä¸Šå±‚ç½‘ç»œæœ€å°å•å…ƒåˆ’åˆ†
 vector<vector<Node>> smallest_devision1(vector<vector<Node>> nodeList, int length, int Lmax, int k, int k1 = 0, int k2 = 0) {
 	vector<Node> a_set;
 	vector<vector<Node>> sets;
@@ -402,7 +402,7 @@ vector<vector<Node>> smallest_devision1(vector<vector<Node>> nodeList, int lengt
 	vector<vector<Node>> sPart;
 
 	int L = Lmax / 4 * 4;
-	//½«Á½²ãÍøÂçµÄ½»»»»úÊıÁ¿±äÎªÅ¼Êı
+	//å°†ä¸¤å±‚ç½‘ç»œçš„äº¤æ¢æœºæ•°é‡å˜ä¸ºå¶æ•°
 	if (k / 2 % 2 != 0) {
 		for (int i = 0; i < k / 2; i++) {
 			a_set.push_back(nodeList[i][0]);
@@ -429,15 +429,15 @@ vector<vector<Node>> smallest_devision1(vector<vector<Node>> nodeList, int lengt
 			a_set.clear();
 		}
 		
-		//ÅĞ¶ÏÍØÆËÊÇ·ñÄÜ±»»®·ÖÎªNmin¸öÇøÓò
+		//åˆ¤æ–­æ‹“æ‰‘æ˜¯å¦èƒ½è¢«åˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 		int Nmin = std::ceil(static_cast<double>(k) * k / 2 / L);
 		//cout << Nmin << endl;
 
 		bool found1 = false;
-		for (; L > 0; L -= 4) {  //µ±µ±Ç°µÄL²»·ûºÏÌõ¼şÊ±£¬Ñ°ÕÒL=L-4£¬¼ÌĞø¶ÔĞÂµÄL½øĞĞ»®·Ö
+		for (; L > 0; L -= 4) {  //å½“å½“å‰çš„Lä¸ç¬¦åˆæ¡ä»¶æ—¶ï¼Œå¯»æ‰¾L=L-4ï¼Œç»§ç»­å¯¹æ–°çš„Lè¿›è¡Œåˆ’åˆ†
 			Nmin = std::ceil(static_cast<double>(k) * k / 2 / L);
-			for (int a = 2; a < L / 2 + 1; a += 2) {  //µÚÒ»´Î»®·Ö
-				if (k * k / 2 % Nmin == 0 && k * k / 2 / Nmin % 4 == 0)  //¿ÉÒÔ±»»®·ÖÎªNmin¸öÇøÓò
+			for (int a = 2; a < L / 2 + 1; a += 2) {  //ç¬¬ä¸€æ¬¡åˆ’åˆ†
+				if (k * k / 2 % Nmin == 0 && k * k / 2 / Nmin % 4 == 0)  //å¯ä»¥è¢«åˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 				{
 					L = k * k / 2 / Nmin;
 					int b = L / a;
@@ -448,7 +448,7 @@ vector<vector<Node>> smallest_devision1(vector<vector<Node>> nodeList, int lengt
 					}
 				}
 				if (found1) break;
-				else {  //²»¿ÉÒÔ±»»®·ÖÎªNmin¸öÇøÓò
+				else {  //ä¸å¯ä»¥è¢«åˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 					for (int a = 2; a < k * k / 4 / Nmin && a < k / 2 + 1; a += 2) {
 						if (L % a == 0)
 						{
@@ -456,41 +456,41 @@ vector<vector<Node>> smallest_devision1(vector<vector<Node>> nodeList, int lengt
 							if (b % 2 == 0 && b < k + 1) {
 								int b = L / a;
 								int na = k / 2 / a, nb = k / b, rest1 = k / 2 % a, rest2 = k % b;
-								//½«ÍØÆËÉÏ²ã½»»»»ú·Ö³Éna*a×é£¬ÏÂ²ã½»»»»ú·Ö³Énb*b×é£¬½«Õâ¼¸×é½»»»»ú»¥Ïà×éºÏ£¬Ö®ºó¶ÔÊ£ÓàµÄ½»»»»úÖØĞÂ»®·Ö
+								//å°†æ‹“æ‰‘ä¸Šå±‚äº¤æ¢æœºåˆ†æˆna*aç»„ï¼Œä¸‹å±‚äº¤æ¢æœºåˆ†æˆnb*bç»„ï¼Œå°†è¿™å‡ ç»„äº¤æ¢æœºäº’ç›¸ç»„åˆï¼Œä¹‹åå¯¹å‰©ä½™çš„äº¤æ¢æœºé‡æ–°åˆ’åˆ†
 								devParts = createParts(sets, a, b, k, na, nb, 0, 0);
-								/******************ÉÏÃæÕâ²¿·ÖÊµÏÖÁËÊ×ÏÈ½«na*nb*a*bÕâ¼¸¸öÇøÓò»®·Ö³öÀ´*********************/
-								if (rest1 == 0 && rest2 == 0) {  //µÚ¶ş´Î»®·Ö
-									cout << "Íê³É»®·Ö" << endl;
+								/******************ä¸Šé¢è¿™éƒ¨åˆ†å®ç°äº†é¦–å…ˆå°†na*nb*a*bè¿™å‡ ä¸ªåŒºåŸŸåˆ’åˆ†å‡ºæ¥*********************/
+								if (rest1 == 0 && rest2 == 0) {  //ç¬¬äºŒæ¬¡åˆ’åˆ†
+									cout << "å®Œæˆåˆ’åˆ†" << endl;
 								}
 								if (rest1 != 0 && rest2 == 0) {
 									k1 = rest1;
 									k2 = k - rest2;
-									Nmin = Nmin - devParts.size() * 2 / k;//ÅĞ¶ÏÊÇ·ñÄÜ¹»Ö±½Ó»®·ÖÎªNmin¸öµ¥Ôª
+									Nmin = Nmin - devParts.size() * 2 / k;//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿç›´æ¥åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 									vector<vector<Node>> newParts1 = secondDivision(sets, k1, k2, k, Nmin, L, na * a, 0);
-									devParts.insert(devParts.end(), newParts1.begin(), newParts1.end());	//Íê³ÉµÚ¶ş´Î»®·Ö£¬»¹ĞèÒª¶ÔÊ£ÓàÍØÆË¼ÌĞø»®·Ö
-									/***********Ö»ÄÜÔÚsecondDivisionº¯ÊıÖĞ¼ÌĞø»®·Ö£¿£¿£¿ÒòÎªÒª¶¨Òårest3ĞèÒªa1£¬µ«ÊÇa1ÔÚÕâÀïÎ´¶¨Òå*************/
+									devParts.insert(devParts.end(), newParts1.begin(), newParts1.end());	//å®Œæˆç¬¬äºŒæ¬¡åˆ’åˆ†ï¼Œè¿˜éœ€è¦å¯¹å‰©ä½™æ‹“æ‰‘ç»§ç»­åˆ’åˆ†
+									/***********åªèƒ½åœ¨secondDivisionå‡½æ•°ä¸­ç»§ç»­åˆ’åˆ†ï¼Ÿï¼Ÿï¼Ÿå› ä¸ºè¦å®šä¹‰rest3éœ€è¦a1ï¼Œä½†æ˜¯a1åœ¨è¿™é‡Œæœªå®šä¹‰*************/
 								}
 								if (rest1 == 0 && rest2 != 0) {
 									k1 = k / 2 - rest1;
 									k2 = rest2;
-									Nmin = Nmin - devParts.size() * 2 / k;//ÅĞ¶ÏÊÇ·ñÄÜ¹»Ö±½Ó»®·ÖÎªNmin¸öµ¥Ôª
+									Nmin = Nmin - devParts.size() * 2 / k;//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿç›´æ¥åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 									vector<vector<Node>> newParts1 = secondDivision(sets, k1, k2, k, Nmin, L, 0, nb * b);
 									devParts.insert(devParts.end(), newParts1.begin(), newParts1.end());
-									/*************¼ÌĞø»®·Ö*************/
+									/*************ç»§ç»­åˆ’åˆ†*************/
 								}
 								if (rest1 != 0 && rest2 != 0) {
-									//´¦ÀíÊ£ÓàµÄµÚÒ»¸öÍØÆË
+									//å¤„ç†å‰©ä½™çš„ç¬¬ä¸€ä¸ªæ‹“æ‰‘
 									k1 = k / 2 - rest1;
 									k2 = rest2;
-									//Nmin = Nmin - devParts.size() * 2 / k;//ÅĞ¶ÏÊÇ·ñÄÜ¹»Ö±½Ó»®·ÖÎªNmin¸öµ¥Ôª
+									//Nmin = Nmin - devParts.size() * 2 / k;//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿç›´æ¥åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 									Nmin = std::ceil(static_cast<double>(k1) * k2 / L);
 									vector<vector<Node>> newParts1 = secondDivision(sets, k1, k2, k, Nmin, L, 0, nb * b);
 									devParts.insert(devParts.end(), newParts1.begin(), newParts1.end());
 
-									//´¦ÀíÊ£ÓàµÄµÚ¶ş¸öÍØÆË
+									//å¤„ç†å‰©ä½™çš„ç¬¬äºŒä¸ªæ‹“æ‰‘
 									k1 = rest1;
 									k2 = k;
-									//Nmin = Nmin - devParts.size() * 2 / k;//ÅĞ¶ÏÊÇ·ñÄÜ¹»Ö±½Ó»®·ÖÎªNmin¸öµ¥Ôª
+									//Nmin = Nmin - devParts.size() * 2 / k;//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿç›´æ¥åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 									Nmin = std::ceil(static_cast<double>(k1) * k2 / L);
 									vector<vector<Node>> newParts2 = secondDivision(sets, k1, k2, k, Nmin, L, na * a, 0);
 									devParts.insert(devParts.end(), newParts2.begin(), newParts2.end());
@@ -514,7 +514,7 @@ std::vector<std::vector<Node>> devision1(std::vector<Node> nodeList, int k1, int
 	int L = Lmax / 4 * 4;
 	std::vector<Node> newNodeList;
 	//const int k = k1 + k2;
-	//½«ÉÏÏÂÁ½²ã½»»»»úµÄÊıÁ¿1¾ù±äÎªÅ¼Êı
+	//å°†ä¸Šä¸‹ä¸¤å±‚äº¤æ¢æœºçš„æ•°é‡1å‡å˜ä¸ºå¶æ•°
 	if (k1 % 2 != 0 && k2 % 2 == 0) {
 		newNodeList.resize(k1 + k2 + 1);
 		newNodeList[0] = nodeList[0];
@@ -538,9 +538,9 @@ std::vector<std::vector<Node>> devision1(std::vector<Node> nodeList, int k1, int
 
 	int Nmin;
 	bool found1 = false;
-	for (; L > 0; L -= 4) {  //µ±µ±Ç°µÄL²»·ûºÏÌõ¼şÊ±£¬Ñ°ÕÒL=L-4£¬¼ÌĞø¶ÔĞÂµÄL½øĞĞ»®·Ö
+	for (; L > 0; L -= 4) {  //å½“å½“å‰çš„Lä¸ç¬¦åˆæ¡ä»¶æ—¶ï¼Œå¯»æ‰¾L=L-4ï¼Œç»§ç»­å¯¹æ–°çš„Lè¿›è¡Œåˆ’åˆ†
 		Nmin = std::ceil(static_cast<double>(k1) * k2 / L);
-		if (k1 * k2 % Nmin == 0 && k1 * k2 / Nmin % 4 == 0)  //¿ÉÒÔ±»»®·ÖÎªNmin¸öÇøÓò
+		if (k1 * k2 % Nmin == 0 && k1 * k2 / Nmin % 4 == 0)  //å¯ä»¥è¢«åˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 		{
 			for (int a = 2; a < L / 2 + 1; a += 2) {
 				L = k1 * k2 / Nmin;
@@ -565,7 +565,7 @@ std::vector<std::vector<Node>> devision1(std::vector<Node> nodeList, int k1, int
 			}
 		}
 		if (found1) break;
-		else {  //²»¿ÉÒÔ±»»®·ÖÎªNmin¸öÇøÓò
+		else {  //ä¸å¯ä»¥è¢«åˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 			for (int a = 2; a < L + 1 && a < k1 + 1; a += 2) {
 				if (L % a == 0)
 				{
@@ -573,7 +573,7 @@ std::vector<std::vector<Node>> devision1(std::vector<Node> nodeList, int k1, int
 					if (b % 2 == 0 && b < k2 + 1) {
 						int b = L / a;
 						int na = k1 / a, nb = k2 / b, rest1 = k1 % a, rest2 = k2 % b;
-						//½«ÍØÆËÉÏ²ã½»»»»ú·Ö³Éna*a×é£¬ÏÂ²ã½»»»»ú·Ö³Énb*b×é£¬½«Õâ¼¸×é½»»»»ú»¥Ïà×éºÏ£¬Ö®ºó¶ÔÊ£ÓàµÄ½»»»»úÖØĞÂ»®·Ö
+						//å°†æ‹“æ‰‘ä¸Šå±‚äº¤æ¢æœºåˆ†æˆna*aç»„ï¼Œä¸‹å±‚äº¤æ¢æœºåˆ†æˆnb*bç»„ï¼Œå°†è¿™å‡ ç»„äº¤æ¢æœºäº’ç›¸ç»„åˆï¼Œä¹‹åå¯¹å‰©ä½™çš„äº¤æ¢æœºé‡æ–°åˆ’åˆ†
 						for (int n = 0; n < k1 / a; n++) {
 							sPart.push_back(createPart(newNodeList, add1 + n * a, add1 + (n + 1) * a));
 						}
@@ -587,35 +587,35 @@ std::vector<std::vector<Node>> devision1(std::vector<Node> nodeList, int k1, int
 								devParts.push_back(Part);
 							}
 						}
-						/******************ÉÏÃæÕâ²¿·ÖÊµÏÖÁËÊ×ÏÈ½«na*nb*a*bÕâ¼¸¸öÇøÓò»®·Ö³öÀ´*********************/
-						if (rest1 == 0 && rest2 == 0) {  //µÚ¶ş´Î»®·Ö
-							cout << "Íê³É»®·Ö" << endl;
+						/******************ä¸Šé¢è¿™éƒ¨åˆ†å®ç°äº†é¦–å…ˆå°†na*nb*a*bè¿™å‡ ä¸ªåŒºåŸŸåˆ’åˆ†å‡ºæ¥*********************/
+						if (rest1 == 0 && rest2 == 0) {  //ç¬¬äºŒæ¬¡åˆ’åˆ†
+							cout << "å®Œæˆåˆ’åˆ†" << endl;
 						}
 						if (rest1 != 0 && rest2 == 0) {
 							add1 = k1 / a * a; add2 = 0;
 							int k1_1 = rest1, k2_1 = k2 - rest2;
-							Nmin = Nmin - devParts.size();//ÅĞ¶ÏÊÇ·ñÄÜ¹»Ö±½Ó»®·ÖÎªNmin¸öµ¥Ôª
+							Nmin = Nmin - devParts.size();//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿç›´æ¥åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 							vector<vector<Node>> newParts = devision1(nodeList, k1_1, k2_1, L, add1, add2, k, k1_init, k2_init);
-							devParts.insert(devParts.end(), newParts.begin(), newParts.end());	//Íê³ÉµÚ¶ş´Î»®·Ö£¬»¹ĞèÒª¶ÔÊ£ÓàÍØÆË¼ÌĞø»®·Ö
-							/***********Ö»ÄÜÔÚsecondDivisionº¯ÊıÖĞ¼ÌĞø»®·Ö£¿£¿£¿ÒòÎªÒª¶¨Òårest3ĞèÒªa1£¬µ«ÊÇa1ÔÚÕâÀïÎ´¶¨Òå*************/
+							devParts.insert(devParts.end(), newParts.begin(), newParts.end());	//å®Œæˆç¬¬äºŒæ¬¡åˆ’åˆ†ï¼Œè¿˜éœ€è¦å¯¹å‰©ä½™æ‹“æ‰‘ç»§ç»­åˆ’åˆ†
+							/***********åªèƒ½åœ¨secondDivisionå‡½æ•°ä¸­ç»§ç»­åˆ’åˆ†ï¼Ÿï¼Ÿï¼Ÿå› ä¸ºè¦å®šä¹‰rest3éœ€è¦a1ï¼Œä½†æ˜¯a1åœ¨è¿™é‡Œæœªå®šä¹‰*************/
 						}
 						if (rest1 == 0 && rest2 != 0) {
 							add1 = 0; add2 = k2 / b * b;
 							int k1_1 = k1 - rest1, k2_1 = rest2;
-							Nmin = Nmin - devParts.size();//ÅĞ¶ÏÊÇ·ñÄÜ¹»Ö±½Ó»®·ÖÎªNmin¸öµ¥Ôª
+							Nmin = Nmin - devParts.size();//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿç›´æ¥åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 							vector<vector<Node>> newParts = devision1(nodeList, k1_1, k2_1, L, add1, add2, k, k1_init, k2_init);
 							devParts.insert(devParts.end(), newParts.begin(), newParts.end());
-							/*************¼ÌĞø»®·Ö*************/
+							/*************ç»§ç»­åˆ’åˆ†*************/
 						}
 						if (rest1 != 0 && rest2 != 0) {
-							//´¦ÀíÊ£ÓàµÄµÚÒ»¸öÍØÆË
+							//å¤„ç†å‰©ä½™çš„ç¬¬ä¸€ä¸ªæ‹“æ‰‘
 							add1 = 0; add2 = k2 / b * b;
 							int k1_1 = k1 - rest1, k1_2 = rest2;
 							//Nmin = std::ceil(static_cast<double>(k1) * k2 / L);
 							vector<vector<Node>> newParts = devision1(nodeList, k1_1, k1_2, L, add1, add2, k, k1_init, k2_init);
 							devParts.insert(devParts.end(), newParts.begin(), newParts.end());
 
-							//´¦ÀíÊ£ÓàµÄµÚ¶ş¸öÍØÆË
+							//å¤„ç†å‰©ä½™çš„ç¬¬äºŒä¸ªæ‹“æ‰‘
 							add1 = k1 / a * a; add2 = 0;
 							int k2_1 = rest1, k2_2 = k2;
 							//Nmin = std::ceil(static_cast<double>(k1) * k2 / L);
@@ -642,7 +642,7 @@ vector<vector<Node>> devision(Node nodeList[], int k1, int k2,int Lmax,int add1,
 	int L = Lmax / 4 * 4; 
 	std::vector<Node> newNodeList;
 	//const int k = k1 + k2;
-	//½«ÉÏÏÂÁ½²ã½»»»»úµÄÊıÁ¿1¾ù±äÎªÅ¼Êı
+	//å°†ä¸Šä¸‹ä¸¤å±‚äº¤æ¢æœºçš„æ•°é‡1å‡å˜ä¸ºå¶æ•°
 	if (k1 % 2 != 0&& k2 % 2 == 0) {
 		newNodeList.resize(k1+k2 + 1);
 		newNodeList[0] = nodeList[0];
@@ -666,9 +666,9 @@ vector<vector<Node>> devision(Node nodeList[], int k1, int k2,int Lmax,int add1,
 	
 	int Nmin;
 	bool found1 = false;
-	for (; L > 0; L -= 4) {  //µ±µ±Ç°µÄL²»·ûºÏÌõ¼şÊ±£¬Ñ°ÕÒL=L-4£¬¼ÌĞø¶ÔĞÂµÄL½øĞĞ»®·Ö
+	for (; L > 0; L -= 4) {  //å½“å½“å‰çš„Lä¸ç¬¦åˆæ¡ä»¶æ—¶ï¼Œå¯»æ‰¾L=L-4ï¼Œç»§ç»­å¯¹æ–°çš„Lè¿›è¡Œåˆ’åˆ†
 		Nmin = std::ceil(static_cast<double>(k1) * k2 / L);
-		if (k1 * k2 % Nmin == 0 && k1 * k2 / Nmin % 4 == 0)  //¿ÉÒÔ±»»®·ÖÎªNmin¸öÇøÓò
+		if (k1 * k2 % Nmin == 0 && k1 * k2 / Nmin % 4 == 0)  //å¯ä»¥è¢«åˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 		{
 			for (int a = 2; a < L / 2 + 1; a += 2) {
 				L = k1 * k2 / Nmin;
@@ -693,7 +693,7 @@ vector<vector<Node>> devision(Node nodeList[], int k1, int k2,int Lmax,int add1,
 			}			
 		}
 		if (found1) break;
-		else {  //²»¿ÉÒÔ±»»®·ÖÎªNmin¸öÇøÓò
+		else {  //ä¸å¯ä»¥è¢«åˆ’åˆ†ä¸ºNminä¸ªåŒºåŸŸ
 			for (int a = 2; a < L + 1 && a < k1 + 1; a += 2) {
 				if (L % a == 0)
 				{
@@ -701,7 +701,7 @@ vector<vector<Node>> devision(Node nodeList[], int k1, int k2,int Lmax,int add1,
 					if (b % 2 == 0 && b < k2 + 1) {
 						int b = L / a;
 						int na = k1 / a, nb = k2 / b, rest1 = k1 % a, rest2 = k2 % b;
-						//½«ÍØÆËÉÏ²ã½»»»»ú·Ö³Éna*a×é£¬ÏÂ²ã½»»»»ú·Ö³Énb*b×é£¬½«Õâ¼¸×é½»»»»ú»¥Ïà×éºÏ£¬Ö®ºó¶ÔÊ£ÓàµÄ½»»»»úÖØĞÂ»®·Ö
+						//å°†æ‹“æ‰‘ä¸Šå±‚äº¤æ¢æœºåˆ†æˆna*aç»„ï¼Œä¸‹å±‚äº¤æ¢æœºåˆ†æˆnb*bç»„ï¼Œå°†è¿™å‡ ç»„äº¤æ¢æœºäº’ç›¸ç»„åˆï¼Œä¹‹åå¯¹å‰©ä½™çš„äº¤æ¢æœºé‡æ–°åˆ’åˆ†
 						for (int n = 0; n < k1 / a; n++) {
 							sPart.push_back(createPart(newNodeList, add1 + n * a, add1 + (n + 1) * a));
 						}
@@ -715,35 +715,35 @@ vector<vector<Node>> devision(Node nodeList[], int k1, int k2,int Lmax,int add1,
 								devParts.push_back(Part);
 							}
 						}
-						/******************ÉÏÃæÕâ²¿·ÖÊµÏÖÁËÊ×ÏÈ½«na*nb*a*bÕâ¼¸¸öÇøÓò»®·Ö³öÀ´*********************/
-						if (rest1 == 0 && rest2 == 0) {  //µÚ¶ş´Î»®·Ö
-							cout << "Íê³É»®·Ö" << endl;
+						/******************ä¸Šé¢è¿™éƒ¨åˆ†å®ç°äº†é¦–å…ˆå°†na*nb*a*bè¿™å‡ ä¸ªåŒºåŸŸåˆ’åˆ†å‡ºæ¥*********************/
+						if (rest1 == 0 && rest2 == 0) {  //ç¬¬äºŒæ¬¡åˆ’åˆ†
+							cout << "å®Œæˆåˆ’åˆ†" << endl;
 						}
 						if (rest1 != 0 && rest2 == 0) {
 							add1 = k1 / a * a; add2 = 0; 
 							int k1_1 = rest1, k2_1 = k2 - rest2;
-							Nmin = Nmin - devParts.size();//ÅĞ¶ÏÊÇ·ñÄÜ¹»Ö±½Ó»®·ÖÎªNmin¸öµ¥Ôª
+							Nmin = Nmin - devParts.size();//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿç›´æ¥åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 							vector<vector<Node>> newParts = devision(nodeList, k1_1, k2_1, L, add1, add2,k,k1,k2);
-							devParts.insert(devParts.end(), newParts.begin(), newParts.end());	//Íê³ÉµÚ¶ş´Î»®·Ö£¬»¹ĞèÒª¶ÔÊ£ÓàÍØÆË¼ÌĞø»®·Ö
-							/***********Ö»ÄÜÔÚsecondDivisionº¯ÊıÖĞ¼ÌĞø»®·Ö£¿£¿£¿ÒòÎªÒª¶¨Òårest3ĞèÒªa1£¬µ«ÊÇa1ÔÚÕâÀïÎ´¶¨Òå*************/
+							devParts.insert(devParts.end(), newParts.begin(), newParts.end());	//å®Œæˆç¬¬äºŒæ¬¡åˆ’åˆ†ï¼Œè¿˜éœ€è¦å¯¹å‰©ä½™æ‹“æ‰‘ç»§ç»­åˆ’åˆ†
+							/***********åªèƒ½åœ¨secondDivisionå‡½æ•°ä¸­ç»§ç»­åˆ’åˆ†ï¼Ÿï¼Ÿï¼Ÿå› ä¸ºè¦å®šä¹‰rest3éœ€è¦a1ï¼Œä½†æ˜¯a1åœ¨è¿™é‡Œæœªå®šä¹‰*************/
 						}
 						if (rest1 == 0 && rest2 != 0) {
 							add1 = 0; add2 = k2 / b * b;
 							int k1_1 = k1 - rest1, k2_1 = rest2;
-							Nmin = Nmin - devParts.size();//ÅĞ¶ÏÊÇ·ñÄÜ¹»Ö±½Ó»®·ÖÎªNmin¸öµ¥Ôª
+							Nmin = Nmin - devParts.size();//åˆ¤æ–­æ˜¯å¦èƒ½å¤Ÿç›´æ¥åˆ’åˆ†ä¸ºNminä¸ªå•å…ƒ
 							vector<vector<Node>> newParts = devision(nodeList, k1_1, k2_1, L, add1, add2,k,k1,k2);
 							devParts.insert(devParts.end(), newParts.begin(), newParts.end());
-							/*************¼ÌĞø»®·Ö*************/
+							/*************ç»§ç»­åˆ’åˆ†*************/
 						}
 						if (rest1 != 0 && rest2 != 0) {
-							//´¦ÀíÊ£ÓàµÄµÚÒ»¸öÍØÆË
+							//å¤„ç†å‰©ä½™çš„ç¬¬ä¸€ä¸ªæ‹“æ‰‘
 							add1 = 0; add2 = k2 / b * b; 
 							int k1_1 = k1 - rest1, k1_2 = rest2;
 							//Nmin = std::ceil(static_cast<double>(k1) * k2 / L);
 							vector<vector<Node>> newParts = devision(nodeList, k1_1, k1_2, L, add1, add2,k,k1,k2);
 							devParts.insert(devParts.end(), newParts.begin(), newParts.end());
 
-							//´¦ÀíÊ£ÓàµÄµÚ¶ş¸öÍØÆË
+							//å¤„ç†å‰©ä½™çš„ç¬¬äºŒä¸ªæ‹“æ‰‘
 							add1 = k1 / a * a; add2 = 0; 
 							int k2_1 = rest1, k2_2 = k2;
 							//Nmin = std::ceil(static_cast<double>(k1) * k2 / L);
@@ -758,7 +758,7 @@ vector<vector<Node>> devision(Node nodeList[], int k1, int k2,int Lmax,int add1,
 		}
 		
 		
-		for (int a = 2; a < L / 2 + 1; a += 2) {  //µÚÒ»´Î»®·Ö
+		for (int a = 2; a < L / 2 + 1; a += 2) {  //ç¬¬ä¸€æ¬¡åˆ’åˆ†
 			
 		}
 		if (found1) break;
@@ -766,7 +766,7 @@ vector<vector<Node>> devision(Node nodeList[], int k1, int k2,int Lmax,int add1,
 	
 	return devParts;
 }
-//ÏÂ²ãÍøÂç×îĞ¡µ¥Ôª»®·Ö
+//ä¸‹å±‚ç½‘ç»œæœ€å°å•å…ƒåˆ’åˆ†
 vector<vector<Node>> smallest_devision2(vector<vector<Node>> nodeList, int length, int Lmax, int k) {
 	vector<Node> a_set;
 	vector<vector<Node>> sets;
@@ -775,7 +775,7 @@ vector<vector<Node>> smallest_devision2(vector<vector<Node>> nodeList, int lengt
 	vector<vector<Node>> sPart;
 
 	int L = Lmax / 4 * 4;
-	//½«Á½²ãÍøÂçµÄ½»»»»úÊıÁ¿±äÎªÅ¼Êı
+	//å°†ä¸¤å±‚ç½‘ç»œçš„äº¤æ¢æœºæ•°é‡å˜ä¸ºå¶æ•°
 	if (k / 2 % 2 != 0) {
 		for (int i = 0; i < k; i++) {
 			a_set.push_back(nodeList[i][0]);
@@ -1042,7 +1042,7 @@ vector<Node> DepthFirstTraverse(CMap* map, int nodeIndex) {
 	int index = 0;
 	map->updateDegree();
 	vector_sw.push_back(map->find(nodeIndex));
-	//cout << "ÆğÊ¼µãÎªs" << nodeIndex << endl;
+	//cout << "èµ·å§‹ç‚¹ä¸ºs" << nodeIndex << endl;
 	vector<Node> sum_list;
 	map->getPath(vector_sw, index);
 	return map->noDegree;
@@ -1086,7 +1086,7 @@ void multithreads(int thread_num, vector<CMap*>maps_without_error, vector<vector
 	while (maps_waiting != 0) {
 		if (maps_waiting >= thread_num) {
 			//m3.lock();
-			//cout << "*********************************ÓĞ" << maps_waiting << "¸öÎ´´¦ÀíÍØÆË***" << endl;
+			//cout << "*********************************æœ‰" << maps_waiting << "ä¸ªæœªå¤„ç†æ‹“æ‰‘***" << endl;
 			int counter = thread_num;
 			vector<thread> threads;
 			while (counter != 0) {
@@ -1095,7 +1095,7 @@ void multithreads(int thread_num, vector<CMap*>maps_without_error, vector<vector
 					if (!maps_without_error[i]->been_dfs) {
 						//m1.lock();
 						//temp.lock();
-						//cout << "´¦ÀíÍØÆË" << i << endl;
+						//cout << "å¤„ç†æ‹“æ‰‘" << i << endl;
 						//temp.unlock();
 						maps_without_error[i]->been_dfs = true;
 						threads.push_back(thread(DepthFirstTraverse1, ref(maps_without_error[i]), smallest_units[i][0].m_cData, i));
@@ -1118,7 +1118,7 @@ void multithreads(int thread_num, vector<CMap*>maps_without_error, vector<vector
 		}
 		else {
 			//m3.lock();
-			//cout << "***ÓĞ" << maps_waiting << "¸öÎ´´¦ÀíÍØÆË**************************" << endl;
+			//cout << "***æœ‰" << maps_waiting << "ä¸ªæœªå¤„ç†æ‹“æ‰‘**************************" << endl;
 			int counter = maps_waiting;
 			vector<thread> threads;
 			while (counter != 0) {
@@ -1127,7 +1127,7 @@ void multithreads(int thread_num, vector<CMap*>maps_without_error, vector<vector
 					if (!maps_without_error[i]->been_dfs) {
 						//m1.lock();
 						//temp.lock();
-						//cout << "´¦ÀíÍØÆË" << i << endl;
+						//cout << "å¤„ç†æ‹“æ‰‘" << i << endl;
 						//temp.unlock();
 						maps_without_error[i]->been_dfs = true;
 						threads.push_back(thread(DepthFirstTraverse1, ref(maps_without_error[i]), smallest_units[i][0].m_cData, i));
@@ -1153,19 +1153,19 @@ void multithreads(int thread_num, vector<CMap*>maps_without_error, vector<vector
 }
 int main(void)
 {
-	// ½«Êı¾İ±£´æµ½Ñ¡¶¨Î»ÖÃµÄexcelÎÄ¼şÖĞ
+	// å°†æ•°æ®ä¿å­˜åˆ°é€‰å®šä½ç½®çš„excelæ–‡ä»¶ä¸­
 	BasicExcel xls;
 
 	BasicExcelWorksheet* sheet = NULL;
 	BasicExcelCell* cell = NULL;
 
-	int RowNum = 1;    // ±êÌâÔÚµÚÒ»ĞĞ£¬Êı¾İ´ÓµÚ¶şĞĞ¿ªÊ¼±£´æ£¬ËùÒÔÕâÀïvalueÎª1¶ø²»ÊÇ0
+	int RowNum = 1;    // æ ‡é¢˜åœ¨ç¬¬ä¸€è¡Œï¼Œæ•°æ®ä»ç¬¬äºŒè¡Œå¼€å§‹ä¿å­˜ï¼Œæ‰€ä»¥è¿™é‡Œvalueä¸º1è€Œä¸æ˜¯0
 
-	// ´´½¨¹¤×÷±í1²¢»ñÈ¡¹ØÁªµÄBasicExcelWorksheetÖ¸Õë
+	// åˆ›å»ºå·¥ä½œè¡¨1å¹¶è·å–å…³è”çš„BasicExcelWorksheetæŒ‡é’ˆ
 	xls.New(1);
 	sheet = xls.GetWorksheet(0);
 	XLSFormatManager fmt_mgr(xls);
-	// ÉèÖÃExcel±í¸ñÖĞµÄ×ÖÌå
+	// è®¾ç½®Excelè¡¨æ ¼ä¸­çš„å­—ä½“
 	ExcelFont font_bold;
 	font_bold._weight = FW_BOLD; // 700
 
@@ -1173,15 +1173,15 @@ int main(void)
 	fmt_bold.set_font(font_bold);
 
 	int col = 0, row = 0;
-	//Ğ´ÈëµÚÒ»ĞĞ£¬Ò²¾ÍÊÇ±íÍ·
+	//å†™å…¥ç¬¬ä¸€è¡Œï¼Œä¹Ÿå°±æ˜¯è¡¨å¤´
 	cell = sheet->Cell(row, col); cell->Set("Number Of Threads");      cell->SetFormat(fmt_bold); ++col;
 	cell = sheet->Cell(row, col); cell->Set("RUN TIME");  cell->SetFormat(fmt_bold); col = 0;
 	/*
-	//¹¹½¨30x30µÄµ¥podÍØÆË
+	//æ„å»º30x30çš„å•podæ‹“æ‰‘
 	CMap* pMap = new CMap(80);
 	const int switch_sum = 80;
 	Node nodeList[switch_sum];
-	//30x30½ÚµãÌí¼Ó
+	//30x30èŠ‚ç‚¹æ·»åŠ 
 	for (int i = 0; i < switch_sum; i++) {
 		if (i < 40) {
 			Node* pNode = new Node(i + 1, '2');
@@ -1202,24 +1202,24 @@ int main(void)
 
 	}
 
-	//30x30È«Á¬½ÓÌí¼Ó
+	//30x30å…¨è¿æ¥æ·»åŠ 
 	for (int i = 0; i < 40; i++) {
 		for (int j = 0; j < 40; j++) {
 			pMap->setValueToMatrixForUndirectedGraph(i, 40 + j);
 		}
 	}
-	//pMap->printMartrix();[µ±k=80Ê±£¬´òÓ¡³öÀ´µÄÈ·ÊµÊÇ40*40µÄÈ«Á¬½ÓÍØÆË]
+	//pMap->printMartrix();[å½“k=80æ—¶ï¼Œæ‰“å°å‡ºæ¥çš„ç¡®å®æ˜¯40*40çš„å…¨è¿æ¥æ‹“æ‰‘]
 	//cout << "size of nodelist is:" << sizeof(nodeList) / sizeof(nodeList[0]) << endl;
 	*/
 
 
-	//¹¹½¨kÔªÅÖÊ÷ÍØÆË
-	const int k = 32;//*************kÎªÅÖÊ÷ÔªÊı**************
-	const int Lmax = 40;//**************LmaxÎª×î´óÂ·¾¶³¤¶È*****************
+	//æ„å»ºkå…ƒèƒ–æ ‘æ‹“æ‰‘
+	const int k = 32;//*************kä¸ºèƒ–æ ‘å…ƒæ•°**************
+	const int Lmax = 40;//**************Lmaxä¸ºæœ€å¤§è·¯å¾„é•¿åº¦*****************
 	CMap* pMap = new CMap(k * k * 5 / 4);
 	const int switch_sum = k * k * 5 / 4;
 	Node nodeList[switch_sum];
-	//½ÚµãÌí¼Ó
+	//èŠ‚ç‚¹æ·»åŠ 
 	for (int i = 0; i < switch_sum; i++) {
 		if (i < k * k / 4) {
 			Node* pNode = new Node(i + 1, '3');
@@ -1250,45 +1250,45 @@ int main(void)
 
 
 
-	//µÚÒ»´Î·ÖÇø£¨µÃµ½ÉÏÏÂÁ½²ãÍøÂç£©
+	//ç¬¬ä¸€æ¬¡åˆ†åŒºï¼ˆå¾—åˆ°ä¸Šä¸‹ä¸¤å±‚ç½‘ç»œï¼‰
 	int num_of_layer2 = layer2area(nodeList, sizeof(nodeList) / sizeof(nodeList[0]), k);
-	/*print(devide1_1);//¿ÉÒÔµÃµ½ÉÏ²ãÍøÂçºÍÏÂ²ãÍøÂçµÄ½Úµã
+	/*print(devide1_1);//å¯ä»¥å¾—åˆ°ä¸Šå±‚ç½‘ç»œå’Œä¸‹å±‚ç½‘ç»œçš„èŠ‚ç‚¹
 	cout << endl;
 	print(devide1_2);*/
-	//µÚ¶ş´Î·ÖÇø£¨µÃµ½ÉÏÏÂÁ½²ãÍøÂçµÄ¶ş²ãÁ¬Í¨×ÓÇøÓò£©
-	/*vector<vector<Node>> sets = foundSets(nodeList, sizeof(nodeList) / sizeof(nodeList[0]), k);//ÉÏ²ãÍøÂç*/
+	//ç¬¬äºŒæ¬¡åˆ†åŒºï¼ˆå¾—åˆ°ä¸Šä¸‹ä¸¤å±‚ç½‘ç»œçš„äºŒå±‚è¿é€šå­åŒºåŸŸï¼‰
+	/*vector<vector<Node>> sets = foundSets(nodeList, sizeof(nodeList) / sizeof(nodeList[0]), k);//ä¸Šå±‚ç½‘ç»œ*/
 
-	vector<vector<Node>> sets = foundSets(devide1_1, sizeof(nodeList) / sizeof(nodeList[0]), k);//ÉÏ²ãÍøÂç
-	//print(sets);//´òÓ¡ÉÏ²ãÍøÂçµÄ¶ş²ãÁ¬Í¨×ÓÇøÓò
-	vector<vector<Node>> pods = foundPods1(devide1_2, sizeof(nodeList) / sizeof(nodeList[0]), k);//ÏÂ²ãÍøÂç
-	//print(pods);//´òÓ¡ÏÂ²ãÍøÂçµÄ¶ş²ãÁ¬Í¨×ÓÇøÓò
-	//vector<vector<Node>> pods = foundPods1(nodeList, sizeof(nodeList) / sizeof(nodeList[0]));//ÏÂ²ãÍøÂç
+	vector<vector<Node>> sets = foundSets(devide1_1, sizeof(nodeList) / sizeof(nodeList[0]), k);//ä¸Šå±‚ç½‘ç»œ
+	//print(sets);//æ‰“å°ä¸Šå±‚ç½‘ç»œçš„äºŒå±‚è¿é€šå­åŒºåŸŸ
+	vector<vector<Node>> pods = foundPods1(devide1_2, sizeof(nodeList) / sizeof(nodeList[0]), k);//ä¸‹å±‚ç½‘ç»œ
+	//print(pods);//æ‰“å°ä¸‹å±‚ç½‘ç»œçš„äºŒå±‚è¿é€šå­åŒºåŸŸ
+	//vector<vector<Node>> pods = foundPods1(nodeList, sizeof(nodeList) / sizeof(nodeList[0]));//ä¸‹å±‚ç½‘ç»œ
 
 
-	//µÚÈı´Î·ÖÇø
+	//ç¬¬ä¸‰æ¬¡åˆ†åŒº
 	vector<vector<Node>> smallest_units = smallest_devision1(sets, sizeof(nodeList) / sizeof(nodeList[0]), Lmax, k, 0, 0);
 	//print(smallest_units); cout << smallest_units.size() << endl;
 	vector<vector<Node>> smallest_units2 = smallest_devision2(pods, sizeof(nodeList) / sizeof(nodeList[0]), Lmax, k);
 	//print(smallest_units2); cout << smallest_units2.size() << endl;
 	//vector<vector<Node>> smallest_units = smallest_devision(pods, sizeof(nodeList) / sizeof(nodeList[0]), Lmax, k);
 
-	smallest_units.insert(smallest_units.end(), smallest_units2.begin(), smallest_units2.end());//½«ÉÏÏÂÁ½²ãÍøÂç»®·ÖµÄÇøÓòºÏÔÚÒ»Æğ
+	smallest_units.insert(smallest_units.end(), smallest_units2.begin(), smallest_units2.end());//å°†ä¸Šä¸‹ä¸¤å±‚ç½‘ç»œåˆ’åˆ†çš„åŒºåŸŸåˆåœ¨ä¸€èµ·
 	print(smallest_units); 
 	cout << smallest_units.size() << endl;
 
 
 
-	//DFSÂ·¾¶¹æ»®(µ¥Ïß³Ì£©
-	std::vector<CMap*> maps1;  // ´æ´¢ËùÓĞ smallmap Ö¸Õë
+	//DFSè·¯å¾„è§„åˆ’(å•çº¿ç¨‹ï¼‰
+	std::vector<CMap*> maps1;  // å­˜å‚¨æ‰€æœ‰ smallmap æŒ‡é’ˆ
 
 	for (int i = 0; i < smallest_units.size(); i++) {
 		CMap* smallmap = build_small_units_link(smallest_units[i]);
 		smallmap->updateDegree();
-		maps1.push_back(smallmap);  // ´æ´¢Ö¸Õë
+		maps1.push_back(smallmap);  // å­˜å‚¨æŒ‡é’ˆ
 	}
 
 //cout << smallest_units.size() << endl;
-	auto beg_t = chrono::system_clock::now(); //¿ªÊ¼Ê±¼ä
+	auto beg_t = chrono::system_clock::now(); //å¼€å§‹æ—¶é—´
 
 	for (CMap* map : maps1) {
 		vector<Node> res = map->DFS1(0);
@@ -1310,8 +1310,8 @@ int main(void)
 
 	const int map_num = smallest_units.size();
 
-	 //²»·Ö×é¶àÏß³Ì
-     //¶àÏß³Ì×ÊÔ´³Ø
+	 //ä¸åˆ†ç»„å¤šçº¿ç¨‹
+     //å¤šçº¿ç¨‹èµ„æºæ± 
 
 	vector<CMap*> maps;
 	for (int i = 0; i < map_num; i++) {
@@ -1325,14 +1325,14 @@ int main(void)
 	std::mutex output_mutex;
 	
 	//auto beg_t111 = std::chrono::system_clock::now();
-	// ĞŞ¸ÄºóµÄÈÎÎñÌá½»Ñ­»·
+	// ä¿®æ”¹åçš„ä»»åŠ¡æäº¤å¾ªç¯
 	for (int j = 0; j < maps.size(); ++j) {
 		results.emplace_back(
-			pool.enqueue([map_idx = j, &maps, &output_mutex] {  // Ê¹ÓÃ³õÊ¼»¯²¶»ñ±£Ö¤Ë÷ÒıÕıÈ·
+			pool.enqueue([map_idx = j, &maps, &output_mutex] {  // ä½¿ç”¨åˆå§‹åŒ–æ•è·ä¿è¯ç´¢å¼•æ­£ç¡®
 				try {
 					auto beg_t = std::chrono::system_clock::now();
 
-					// ²Ù×÷ÌØ¶¨map¶ÔÏó£¨È·±£Ã¿¸ömapÖ»±»Ò»¸öÏß³Ì·ÃÎÊ£©
+					// æ“ä½œç‰¹å®šmapå¯¹è±¡ï¼ˆç¡®ä¿æ¯ä¸ªmapåªè¢«ä¸€ä¸ªçº¿ç¨‹è®¿é—®ï¼‰
 					CMap* current_map = maps[map_idx];
 					current_map->noDegree.clear();
 					//current_map->resetMap();
@@ -1345,10 +1345,10 @@ int main(void)
 					auto diff = end_t - beg_t;
 
 
-					// »ñÈ¡µ±Ç°Ïß³ÌID
+					// è·å–å½“å‰çº¿ç¨‹ID
 					auto thread_id = std::this_thread::get_id();
 
-					// ¸üĞÂÏß³ÌÍ³¼ÆĞÅÏ¢£¨¼ÓËø±£»¤£©
+					// æ›´æ–°çº¿ç¨‹ç»Ÿè®¡ä¿¡æ¯ï¼ˆåŠ é”ä¿æŠ¤ï¼‰
 					{
 						std::lock_guard<std::mutex> lock(stats_mutex);
 						auto& stats = thread_stats[thread_id];
@@ -1358,7 +1358,7 @@ int main(void)
 						if (diff > stats.max_time) stats.max_time = diff;
 					}
 
-					// Êä³öÈÎÎñÈÕÖ¾£¨¿ÉÑ¡£©
+					// è¾“å‡ºä»»åŠ¡æ—¥å¿—ï¼ˆå¯é€‰ï¼‰
 					//{
 					//	std::lock_guard<std::mutex> lock(output_mutex);
 					//	std::cout << "Task " << map_idx
@@ -1370,7 +1370,7 @@ int main(void)
 
 
 
-					// Êä³öÊ±¼ÓËø
+					// è¾“å‡ºæ—¶åŠ é”
 					{
 						//std::lock_guard<std::mutex> lock(output_mutex);
 						//std::cout << "Task " << map_idx
@@ -1395,10 +1395,10 @@ int main(void)
 	
 	
 
-	// µÈ´ıËùÓĞÈÎÎñÍê³É²¢´¦ÀíÒì³£
+	// ç­‰å¾…æ‰€æœ‰ä»»åŠ¡å®Œæˆå¹¶å¤„ç†å¼‚å¸¸
 	for (auto& future : results) {
 		try {
-			total_diff += future.get();  // ×èÈûÖ±µ½ÈÎÎñÍê³É
+			total_diff += future.get();  // é˜»å¡ç›´åˆ°ä»»åŠ¡å®Œæˆ
 		}
 		catch (const std::exception& e) {
 			std::lock_guard<std::mutex> lock(output_mutex);
@@ -1408,10 +1408,10 @@ int main(void)
 
 	std::cout << "Total execution time: " << total_diff.count() << " seconds\n";
 
-	// ´òÓ¡Ïß³ÌÍ³¼Æ
+	// æ‰“å°çº¿ç¨‹ç»Ÿè®¡
 	std::lock_guard<std::mutex> lock(stats_mutex);
-	for (const auto& entry : thread_stats) {  // entry ÊÇ¼üÖµ¶Ô
-		const std::thread::id& thread_id = entry.first;  // Ö±½Ó»ñÈ¡Ïß³ÌID
+	for (const auto& entry : thread_stats) {  // entry æ˜¯é”®å€¼å¯¹
+		const std::thread::id& thread_id = entry.first;  // ç›´æ¥è·å–çº¿ç¨‹ID
 		const ThreadStats& stats = entry.second;
 
 		std::cout << "\nThread " << thread_id << ":\n"
