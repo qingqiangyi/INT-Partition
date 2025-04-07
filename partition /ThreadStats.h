@@ -1,37 +1,37 @@
-// File: ThreadStats.h£¨ĞÂ½¨¶ÀÁ¢Í·ÎÄ¼ş£©
+// File: ThreadStats.hï¼ˆæ–°å»ºç‹¬ç«‹å¤´æ–‡ä»¶ï¼‰
 #pragma once
 #define NOMINMAX
 #include <chrono>
 #include <unordered_map>
 #include <mutex>
 #include <thread>
-#include <cstddef>  // Ö§³Ö size_t
-#include <chrono>   // Ö§³Ö std::chrono
+#include <cstddef>  // æ”¯æŒ size_t
+#include <chrono>   // æ”¯æŒ std::chrono
 #include <limits>
 
 
 struct ThreadStats {
     size_t task_count = 0;
     std::chrono::duration<double> total_time{};
-    std::chrono::duration<double> min_time{ std::chrono::duration<double>::zero() }; // ³õÊ¼»¯Îª×î´óÕıÖµ
+    std::chrono::duration<double> min_time{ std::chrono::duration<double>::zero() }; // åˆå§‹åŒ–ä¸ºæœ€å¤§æ­£å€¼
     std::chrono::duration<double> max_time{};
 };
 
 
-// ÉùÃ÷Îªextern£¨Í·ÎÄ¼şÖĞÖ»ÉùÃ÷²»¶¨Òå£©
+// å£°æ˜ä¸ºexternï¼ˆå¤´æ–‡ä»¶ä¸­åªå£°æ˜ä¸å®šä¹‰ï¼‰
 extern std::unordered_map<std::thread::id, ThreadStats> thread_stats;
 extern std::mutex stats_mutex;
 
-// File: ThreadStats.cpp£¨ĞÂ½¨Ô´ÎÄ¼ş£©
+// File: ThreadStats.cppï¼ˆæ–°å»ºæºæ–‡ä»¶ï¼‰
 #include "ThreadStats.h"
 
-// ÔÚÔ´ÎÄ¼şÖĞ¶¨ÒåÈ«¾Ö±äÁ¿
+// åœ¨æºæ–‡ä»¶ä¸­å®šä¹‰å…¨å±€å˜é‡
 std::unordered_map<std::thread::id, ThreadStats> thread_stats;
 std::mutex stats_mutex; 
 
 void print_thread_stats() {
     std::lock_guard<std::mutex> lock(stats_mutex);
-    for (const auto& entry : thread_stats) {  // ¼æÈİ C++11/14
+    for (const auto& entry : thread_stats) {  // å…¼å®¹ C++11/14
         const auto& thread_id = entry.first;
         const auto& stats = entry.second;
 
