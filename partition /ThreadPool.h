@@ -16,14 +16,14 @@ public:
     explicit ThreadPool(size_t threads);
     ~ThreadPool();
 
-    // ÏòÏß³Ì³ØÌí¼ÓÈÎÎñ
+    // å‘çº¿ç¨‹æ± æ·»åŠ ä»»åŠ¡
     template <class F, class... Args>
     auto enqueue(F&& f, Args&&... args)
         -> std::future<typename std::invoke_result_t<F, Args...>>;
 
 private:
-    std::vector<std::thread> workers;  // Ïß³Ì³Ø
-    std::queue<std::function<void()>> tasks; // ÈÎÎñ¶ÓÁĞ
+    std::vector<std::thread> workers;  // çº¿ç¨‹æ± 
+    std::queue<std::function<void()>> tasks; // ä»»åŠ¡é˜Ÿåˆ—
 
     std::mutex queue_mutex;
     std::condition_variable condition;
@@ -31,7 +31,7 @@ private:
 
 };
 
-// Ïß³Ì³Ø¹¹Ôìº¯Êı
+// çº¿ç¨‹æ± æ„é€ å‡½æ•°
 inline ThreadPool::ThreadPool(size_t threads) : stop(false) {
     for (size_t i = 0; i < threads; ++i) {
         workers.emplace_back([this] {
@@ -44,13 +44,13 @@ inline ThreadPool::ThreadPool(size_t threads) : stop(false) {
                     task = std::move(this->tasks.front());
                     this->tasks.pop();
                 }
-                task();  // Ö´ĞĞÈÎÎñ
+                task();  // æ‰§è¡Œä»»åŠ¡
             }
             });
     }
 }
 
-// Ïß³Ì³ØÈÎÎñÌá½»º¯Êı
+// çº¿ç¨‹æ± ä»»åŠ¡æäº¤å‡½æ•°
 template <class F, class... Args>
 auto ThreadPool::enqueue(F&& f, Args&&... args)
 -> std::future<typename std::result_of<F(Args...)>::type> {
@@ -69,7 +69,7 @@ auto ThreadPool::enqueue(F&& f, Args&&... args)
     return res;
 }
 
-// Ïß³Ì³ØÎö¹¹º¯Êı
+// çº¿ç¨‹æ± ææ„å‡½æ•°
 inline ThreadPool::~ThreadPool() {
     {
         std::unique_lock<std::mutex> lock(queue_mutex);
