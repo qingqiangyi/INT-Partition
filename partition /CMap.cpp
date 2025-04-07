@@ -53,26 +53,26 @@ vector<Node> CMap::DFS1(int startIndex) {
         int current = s.top();
         bool hasUnvisitedEdge = false;
 
-        // ±éÀúËùÓĞÁÚ½Ó½Úµã
+        // éå†æ‰€æœ‰é‚»æ¥èŠ‚ç‚¹
         for (int i = 0; i < m_iNodeCount; ++i) {
             if (m_pMatrix[current * m_iCapacity + i] != 0 && !visitedEdges[current][i]) {
-                // ±ê¼ÇÎŞÏòÍ¼µÄ±ßÎªÒÑ·ÃÎÊ
+                // æ ‡è®°æ— å‘å›¾çš„è¾¹ä¸ºå·²è®¿é—®
                 visitedEdges[current][i] = true;
                 visitedEdges[i][current] = true;
                 s.push(i);
                 hasUnvisitedEdge = true;
-                break; // ¼ÌĞøÉîÈë
+                break; // ç»§ç»­æ·±å…¥
             }
         }
 
-        // ÎŞÎ´·ÃÎÊµÄ±ß£¬»ØËİ²¢¼ÇÂ¼½Úµã
+        // æ— æœªè®¿é—®çš„è¾¹ï¼Œå›æº¯å¹¶è®°å½•èŠ‚ç‚¹
         if (!hasUnvisitedEdge) {
             result.push_back(m_pNodeArray[current]);
             s.pop();
         }
     }
 
-    // ·´×ª½á¹ûÒÔµÃµ½ÕıÈ·Ë³Ğò
+    // åè½¬ç»“æœä»¥å¾—åˆ°æ­£ç¡®é¡ºåº
     //reverse(result.begin(), result.end());
     return result;
 }
